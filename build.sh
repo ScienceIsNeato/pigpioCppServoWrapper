@@ -1,0 +1,1 @@
+g++ -Wall -pthread -o servo servo.c -lpigpio -lrt
