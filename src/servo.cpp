@@ -26,6 +26,7 @@ int run = 1;
 int step[NUM_GPIO];
 int width[NUM_GPIO];
 int used[NUM_GPIO];
+int gpio_pin;
 
 int randint(int from, int to)
 {
@@ -45,58 +46,58 @@ int main(int argc, char *argv[])
 
 	gpioSetSignalFunc(SIGINT, stop);
 
-	if (argc == 1) used[4] = 1;
+	if (argc == 1) gpio_pin = 4;
 	else
 	{
-		for (i = 1; i<argc; i++)
-		{
-			g = atoi(argv[i]);
-			if ((g >= 0) && (g<NUM_GPIO)) used[g] = 1;
-		}
+		gpio_pin = argv[1];
+		//for (i = 1; i<argc; i++)
+		//{
+		//	g = atoi(argv[i]);
+		//	if ((g >= 0) && (g<NUM_GPIO)) used[g] = 1;
+		//}
 	}
 
-	printf("Sending servos pulses to GPIO");
+	//printf("Sending servos pulses to GPIO");
 
-	for (g = 0; g<NUM_GPIO; g++)
-	{
-		if (used[g])
-		{
-			printf(" %d", g);
-			step[g] = randint(5, 25);
-			if ((step[g] % 2) == 0) step[g] = -step[g];
-			width[g] = randint(MIN_WIDTH, MAX_WIDTH);
-		}
-	}
+	//for (g = 0; g<NUM_GPIO; g++)
+	//{
+	//	if (used[g])
+	//	{
+	//		printf(" %d", g);
+	//		step[g] = randint(5, 25);
+	//		if ((step[g] % 2) == 0) step[g] = -step[g];
+	//		width[g] = randint(MIN_WIDTH, MAX_WIDTH);
+	//	}
+	//}
 
 	printf(", control C to stop.\n");
 	int last_pos = 1500;
 	int new_pos = last_pos;
 	while (run)
 	{
-
-		for (g = 0; g<NUM_GPIO; g++)
+		//for (g = 0; g<NUM_GPIO; g++)
+		//{
+			//if (used[g])
+			//{
+		std::cout << "new pos: " << new_pos << " last pos " << last_pos << std::endl;
+		if (new_pos != last_pos)
 		{
-			if (used[g])
+			int pos = last_pos;
+			int step = 1;
+			if (new_pos < pos)
 			{
-				std::cout << "new pos: " << new_pos << " last pos " << last_pos << std::endl;
-				if (new_pos != last_pos)
-				{
-					int pos = last_pos;
-					int step = 1;
-					if (new_pos < pos)
-					{
-						step = -1;
-					}
-					while (pos != new_pos)
-					{
-						printf("%d %d\n", pos, width[g]);
+				step = -1;
+			}
+			while (pos != new_pos)
+			{
+				printf("%d %d\n", pos, width[gpio_pin]);
 
-						gpioServo(g, pos);
-						pos += step;
-						time_sleep(0.1);
-					}
-					last_pos = pos;
-				}
+				gpioServo(gpio_pin, pos);
+				pos += step;
+				time_sleep(0.001);
+			}
+			last_pos = pos;
+		}
 
 				// printf("%d %d\n", g, width[g]);
 
@@ -107,21 +108,22 @@ int main(int argc, char *argv[])
 				//  step[g] = -step[g];
 				//  width[g] += step[g];
 				//}
-			}
-		}
+		//	}
+		//}
 
-		time_sleep(0.1);
+		//time_sleep(0.1);
 		std::cout << "New position? :\n";
 		std::cin >> new_pos;
 	}
 
 	printf("\ntidying up\n");
 
-	for (g = 0; g<NUM_GPIO; g++)
-	{
-		if (used[g]) gpioServo(g, 0);
-	}
+	//for (g = 0; g<NUM_GPIO; g++)
+	//{
+	//	if (used[g]) gpioServo(g, 0);
+	//}
 
+	gpioServo(gpio_pin, 0);
 	gpioTerminate();
 
 	return 0;
