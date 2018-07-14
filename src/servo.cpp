@@ -40,7 +40,7 @@ void stop(int signum)
 
 int main(int argc, char *argv[])
 {
-	int i, g;
+//	int i, g;
 
 	if (gpioInitialise() < 0) return -1;
 
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	if (argc == 1) gpio_pin = 4;
 	else
 	{
-		gpio_pin = argv[1];
+		gpio_pin = atoi(argv[1]);
 		//for (i = 1; i<argc; i++)
 		//{
 		//	g = atoi(argv[i]);
