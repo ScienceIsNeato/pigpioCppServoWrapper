@@ -1,1 +1,1 @@
-g++ -Wall -pthread -o servo src/servo.cpp -lpigpio -lrt
+g++ -Wall -pthread -o calibrate src/calibrate.cpp -lpigpio -lrt
