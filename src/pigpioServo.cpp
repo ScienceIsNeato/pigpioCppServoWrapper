@@ -1,21 +1,21 @@
 #include "../include/pigpioServo.h"
 
-void pigpioServo::pigpioServo()
+pigpioServo::pigpioServo()
 {
 
 }
 
-void pigpioServo::pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right)
+pigpioServo::pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right)
 {
 
 }
 
-void pigpioServo::pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right, InitialOffset initial_offset)
+pigpioServo::pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right, InitialOffset initial_offset)
 {
 
 }
 
-void pigpioServo::~pigpioServo()
+pigpioServo::~pigpioServo()
 {
 
 }
@@ -37,10 +37,10 @@ void pigpioServo::TurnToAngle(double angle)
 
 bool pigpioServo::IsAngleValid(double angle)
 {
-
+	return false;
 }
 
 int pigpioServo::AngleToPulseWidth(double angle)
 {
-
+	return 0;
 }
