@@ -1,4 +1,4 @@
-#include "pigpioServo.h"
+#include "../include/pigpioServo.h"
 
 void pigpioServo::pigpioServo()
 {
