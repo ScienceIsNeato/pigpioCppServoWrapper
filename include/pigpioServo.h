@@ -39,9 +39,7 @@ public:
 	bool IsAngleValid(double angle);
 
 private:
-	double _x_offset;
-	double _y_offset;
-	double _angle_offset;
+	InitialOffset _initial_offset;
 	int _gpio_pin;
 	AngleMap _max_left;
 	AngleMap _center;

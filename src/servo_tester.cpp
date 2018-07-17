@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-	pigpioServo servo = new pigpioServo();
+	pigpioServo *servo = new pigpioServo();
 	return 0;
 }
 
