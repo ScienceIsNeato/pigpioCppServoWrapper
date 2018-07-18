@@ -9,6 +9,9 @@
 #define MIN_RANGE 500
 #define MAX_RANGE 2500
 
+#define DEFAULT_CENTER_ANGLE 90
+#define DEFAULT_CENTER_PULSE 1500
+
 #define CENTER 0
 #define RIGHT 1
 #define LEFT 2
@@ -101,8 +104,8 @@ AngleMap GetAcceptedVal(int position, AngleMap &accepted_val)
 
 AngleMap PrintPrompt(int position)
 {
-	int angle;
-	int pulse_width;
+	int angle = DEFAULT_CENTER_ANGLE;
+	int pulse_width = DEFAULT_CENTER_PULSE;
 	std::string pos_string = GetPositionString(position);
 
 	std::cout << "Enter the desired angle for the " << pos_string << " value: ";
