@@ -44,6 +44,7 @@ void pigpioServo::SetGpioPin(int pin)
 
 bool pigpioServo::Initialize()
 {
+	_last_pos = _center.pulse_width;
 	std::cout << "A gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
 	if (gpioInitialise() < 0)
 	{
