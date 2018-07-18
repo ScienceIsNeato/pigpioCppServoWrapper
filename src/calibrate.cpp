@@ -28,6 +28,17 @@ struct AngleMap
 	int pulse_width;
 };
 
+void printWelcomeStatement()
+{
+	std::cout << "/n/nWelcome to the pigpio servo calibrator!";
+	std::cout << "Here's the deal - pigio servos are tricky. Don't worry, we're gonna walk you through it...\n";
+	std::cout << "All we're gonna do is ask you for some angles and possible pulse widths to match those angles.\n";
+	std::cout << "We have to do this because pigpio is amazing. It allows you to control every gpio pin on your rpi via PWM, which is awesome!\n";
+	std::cout << "Only issue is, it is based on a linux hack, and each servo is different and requires a different mapping of pulse widths to angles.\n";
+	std::cout << "We'll provide you with hints and guide you along the way. And, hopefully, we'll prevent you from destroying your servo.\n";
+	std::cout << "Though, to be honest, we can't promise that. Press CNTRL+C now if you're worried. Otherwise, let's go!\n\n";
+}
+
 void stop(int is_error)
 {
 	std::cout << "\nCleaning up...\n";
@@ -139,6 +150,8 @@ AngleMap GetVal(int position)
 
 int main(int argc, char *argv[])
 {
+	printWelcomeStatement();
+
 	if (gpioInitialise() < 0)
 	{
 		std::cout << "Error initializing gpio - exiting\n";

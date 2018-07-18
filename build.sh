@@ -17,3 +17,8 @@ else
     exit 1
 fi
 
+echo ""
+echo "Good work. If I were you, first I'd run the calibration script like this:"
+echo ""
+echo "    'sudo ./calibrate <gpio servo pin>'"
+echo ""
