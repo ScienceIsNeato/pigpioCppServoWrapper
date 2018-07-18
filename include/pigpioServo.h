@@ -42,7 +42,7 @@ public:
 	void SetBoundaries(AngleMaps boundaries);
 	void SetOffset(InitialOffset offset);
 	void SetGpioPin(int pin);
-	void Initialize();
+	bool Initialize();
 	void Stop();
 	void TurnToAngle(double angle);
 	bool IsAngleValid(double angle);

@@ -47,10 +47,12 @@ bool pigpioServo::Initialize()
 	if (gpioInitialise() < 0)
 	{
 		std::cout << "Error initializing gpio.\n";
+		return false;
 	}
 
 	// TODO replace with turn call
 	gpioServo(_gpio_pin, _center.pulse_width);
+	return true;
 }
 
 void pigpioServo::Stop()
