@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 		left.angle = atoi(argv[6]);
 		left.pulse_width = atoi(argv[7]);
 		std::cout << "\nGood job!\n";
+		std::cout << "center angle is " << center.angle << "and pulse is " << center.pulse_width << std::endl;
 	}
 	else
 	{

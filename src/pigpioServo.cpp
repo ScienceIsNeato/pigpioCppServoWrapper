@@ -53,7 +53,8 @@ bool pigpioServo::Initialize()
 	std::cout << "gpioInitialise() was successful\n";
 
 	// TODO replace with turn call
-	gpioServo(_gpio_pin, _center.pulse_width);
+	//gpioServo(_gpio_pin, _center.pulse_width);
+	std::cout << "about to set _last_pos to " << _center.pulse_width << std::endl;
 	_last_pos = _center.pulse_width;
 	return true;
 }
