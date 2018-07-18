@@ -31,25 +31,38 @@ struct AngleMap
 void printWelcomeStatement()
 {
 	std::cout << "\n\nWelcome to the pigpio servo calibrator!\n\n";
-	std::cout << "Here's the deal - pigio servos are tricky.\n";
+	std::cout << "Here's the deal - pigpio servos are tricky.\n";
 	std::cout << "Don't worry, we're gonna walk you through it...\n";
 	std::cout << "All we're gonna do is ask you for some angles and\n";
 	std::cout << "pulse widths to match those angles.\n\n";
 	std::cout << "We have to do this because pigpio is amazing.\n";
-	std::cout << "It allows you to control every gpio pin\n";
+	std::cout << "It allows you to control every gpio pin on\n";
 	std::cout << "your rpi via PWM, which is awesome!\n";
-	std::cout << "Only issue is, it is based on a linux hack,\n";
-	std::cout << "each servo is different and requires a\n";
+	std::cout << "Usually the only supported pin is gpi 4!\n";
+	std::cout << "Only issue is, it is based on a linux hack -\n";
+	std::cout << "each servo is different and requires a different\n";
 	std::cout << "mapping of pulse widths to angles.\n\n";
-	std::cout << "We'll provide you with hints and guide you along the way,\n";
-	std::cout << " and, hopefully, we'll prevent you from destroying your servo.\n";
+	std::cout << "We'll provide you with hints and guide you along the way.\n";
+	std::cout << "Hopefully, we'll prevent you from destroying your servo.\n";
 	std::cout << "Though, to be honest, we can't promise that.\n\n";
 	std::cout << "Press CNTRL + C now if you're worried. Otherwise, let's go!\n\n";
 }
 
+void printExitStatement(AngleMap center_val, AngleMap right_val, AngleMap left_val)
+{
+	std::cout << "\nGreat job! Recentering servo for minimal wear...\n";
+	std::cout << "\n\nCALIBRATION RESULTS FOR GPIO: (angle, pulse width) for pin " << gpio_pin << ":" << std::endl;
+	std::cout << "\tRight\t(" << right_val.angle << " degrees, " << right_val.pulse_width << " duty cycle)\n";
+	std::cout << "\tCenter\t(" << center_val.angle << " degrees, " << center_val.pulse_width << " duty cycle)\n";
+	std::cout << "\tLeft\t(" << left_val.angle << " degrees, " << left_val.pulse_width << " duty cycle)\n";
+	std::cout << "\nNext, you should test these calibration results by running the following command:\n";
+	std::cout << "\n\n\t sudo ./test_servo " << gpio_pin << " " << right_val.angle << " " << right_val.pulse_width << " " << center_val.angle << " " << center_val.pulse_width << " " << left_val.angle << " " << left_val.pulse_width << std::endl;
+	std::cout << " \n\nor you can call up an instance of a calibrated servo with the following code: TODO\n";
+}
+
 void stop(int is_error)
 {
-	std::cout << "\nCleaning up...\n";
+	std::cout << "\nFinishing...\n";
 
 	gpioServo(gpio_pin, 0);
 	gpioTerminate();
@@ -180,19 +193,8 @@ int main(int argc, char *argv[])
 	AngleMap right_val = GetVal(RIGHT);
 	AngleMap left_val = GetVal(LEFT);
 
-	std::cout << "Great job! Recentering servo for minimal wear...\n";
-	rotate_servo(left_val.pulse_width, center_val.pulse_width);
-
-	std::cout << "\n\nCALIBRATION RESULTS FOR GPIO: (angle, pulse width) for pin" << gpio_pin << std::endl;
-	std::cout << "Right\t(" << right_val.angle << " degrees, " << right_val.pulse_width << " duty cycle)\n";
-	std::cout << "Center\t(" << center_val.angle << " degrees, " << center_val.pulse_width << " duty cycle)\n";
-	std::cout << "Left\t(" << left_val.angle << " degrees, " << left_val.pulse_width << " duty cycle)\n";
-
-	std::cout << "Next, you should test these calibration results by running the following command:\n";
-	std::cout << "\n\n\t sudo ./test_servo " << gpio_pin << " " << right_val.angle << " " << right_val.pulse_width << " " << center_val.angle << " " << center_val.pulse_width << " " << left_val.angle << " " << left_val.pulse_width << std::endl;
-
-	std::cout << " \n\nor you can call up an instance of a calibrated servo with the following code: TODO\n";
-
+	printExitStatement(center_val, right_val, left_val);
+	rotate_servo(left_val.pulse_width, center_val.pulse_width); // recenter the servo on our way out
 	stop(0);
 
 	return 0;
