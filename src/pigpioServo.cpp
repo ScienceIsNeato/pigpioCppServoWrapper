@@ -44,6 +44,7 @@ void pigpioServo::SetGpioPin(int pin)
 
 bool pigpioServo::Initialize()
 {
+	std::cout << "A gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
 	if (gpioInitialise() < 0)
 	{
 		std::cout << "Error initializing gpio.\n";
@@ -51,8 +52,10 @@ bool pigpioServo::Initialize()
 	}
 
 	std::cout << "gpioInitialise() was successful\n";
+	std::cout << "B gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
 
 	// TODO replace with turn call
+	TurnToAngle(90);
 	//gpioServo(_gpio_pin, _center.pulse_width);
 	std::cout << "about to set _last_pos to " << _center.pulse_width << std::endl;
 	_last_pos = _center.pulse_width;
@@ -68,6 +71,7 @@ void pigpioServo::Stop()
 void pigpioServo::TurnToAngle(double angle)
 {
 	gpioInitialise(); // TODO find out why this has to be here
+	_last_pos = 1600;
 	if(!IsAngleValid(angle))
 	{
 		std::cout << "You entered and invalid angle, dummy.\n";
