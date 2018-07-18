@@ -17,7 +17,10 @@
 #define LEFT 2
 
 int gpio_pin;
-int last_pos = 1500; // default center value
+int last_pos = 1500; // default center 
+
+const std::string typical_angles[] = { "90", "180", "0" }; // indices match to #defs for CENTER/RIGHT/LEFT above
+const std::string typical_pulse_widths[] = { "1500", "2300", "600" }; // indices match to #defs for CENTER/RIGHT/LEFT above
 
 struct AngleMap
 {
@@ -27,14 +30,14 @@ struct AngleMap
 
 void stop(int is_error)
 {
-	std::cout << "Cleaning up...\n";
+	std::cout << "\nCleaning up...\n";
 
 	gpioServo(gpio_pin, 0);
 	gpioTerminate();
 
 	if (is_error)
 	{
-		std::cout << "Aborting the program because you told me to\n";
+		std::cout << "\nAborting the program because you told me to...\n";
 		exit(is_error);
 	}
 	exit(0);
@@ -117,7 +120,7 @@ AngleMap PrintPrompt(int position)
 	int pulse_width = DEFAULT_CENTER_PULSE;
 	std::string pos_string = GetPositionString(position);
 
-	std::cout << "Enter the desired angle for the " << pos_string << " value: ";
+	std::cout << "Enter the desired angle for the " << pos_string << " value (typically for " << typical_angles[position] << " it is " << typical_pulse_widths[position] << ") : ";
 	std::cin >> angle;
 
 	std::cout << "Enter a test pulse width for " << angle << " degrees: ";
