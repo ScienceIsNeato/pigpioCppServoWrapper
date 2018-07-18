@@ -9,6 +9,8 @@
 #define MIN_PULSE_WIDTH 500
 #define MAX_PULSE_WIDTH 2500
 #define DEFAULT_CENTER 1500
+#define MIN_RANGE 500
+#define MAX_RANGE 2500
 
 // Used when initializing the object if there is a distance or angle offset
 // between the servo and the sensor point

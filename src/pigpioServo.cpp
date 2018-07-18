@@ -71,14 +71,14 @@ void pigpioServo::TurnToAngle(double angle)
 	}
 
 	int new_pos = AngleToPulseWidth(angle);
-	int pos = last_pos;
+	int pos = _last_pos;
 	int step = 1;
 
 	// check valid range
 	if (new_pos > MAX_RANGE || new_pos < MIN_RANGE)
 	{
 		std::cout << "Position of " << new_pos << " is invalid. Please select a range between " << MIN_RANGE << " and " << MAX_RANGE << ".\n";
-		return last_pos;
+		return;
 	}
 
 	// sweeping up or down?
@@ -92,7 +92,7 @@ void pigpioServo::TurnToAngle(double angle)
 	{
 		//printf("%d \n", pos);
 
-		gpioServo(gpio_pin, pos);
+		gpioServo(_gpio_pin, pos);
 		pos += step;
 		time_sleep(0.001);
 	}
