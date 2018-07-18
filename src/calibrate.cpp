@@ -116,7 +116,7 @@ AngleMap PrintPrompt(int position)
 AngleMap GetVal(int position)
 {
 	AngleMap angle_map = PrintPrompt(position);
-	return GetAcceptedVal(position, angle_map))
+	return GetAcceptedVal(position, angle_map);
 }
 
 
@@ -138,12 +138,15 @@ int main(int argc, char *argv[])
 	gpioServo(gpio_pin, 1500);
 
 	printf("Calibration routine starting - control C to stop.\n");
-	int center_val = GetVal(CENTER);
-	int right_val = GetVal(RIGHT);
-	int left_val = GetVal(LEFT);
+	AngleMap center_val = GetVal(CENTER);
+	AngleMap right_val = GetVal(RIGHT);
+	AngleMap left_val = GetVal(LEFT);
 
-	std::cout << "CALIBRATION RESULTS FOR GPIO: " << gpio_pin << std::endl;
-	std::cout << "Right Calibration Value:\t" << right_val << ", Center:\t" << center_val << ", Left:\t" << left_val << std::endl;
+	std::cout << "CALIBRATION RESULTS FOR GPIO: (angle, pulse width)" << gpio_pin << std::endl;
+	std::cout << "Right\t(" << right_val.angle << " degrees, " << right_val.pulse_width << " duty cycle)\n";
+	std::cout << "Center\t(" << center_val.angle << " degrees, " << center_val.pulse_width << " duty cycle)\n";
+	std::cout << "Left\t(" << left_val.angle << " degrees, " << left_val.pulse_width << " duty cycle)\n";
+
 	std::cout << "(TODO - add instructions for what to do with these values...)\n";
 
 	gpioServo(gpio_pin, 0);
