@@ -120,10 +120,11 @@ AngleMap PrintPrompt(int position)
 	int pulse_width = DEFAULT_CENTER_PULSE;
 	std::string pos_string = GetPositionString(position);
 
-	std::cout << "Enter the desired angle for the " << pos_string << " value (typically for " << typical_angles[position] << " it is " << typical_pulse_widths[position] << ") : ";
+	std::cout << "Enter the desired angle for the " << pos_string << " position (typically around " << typical_angles[position] << " degrees) : ";
 	std::cin >> angle;
 
-	std::cout << "Enter a test pulse width for " << angle << " degrees: ";
+	std::cout << "Enter a test pulse width for " << angle << " degrees (typically for " << typical_angles[position] << " degrees the pulse width is " << typical_pulse_widths[position] << ") : ";
+
 	std::cin >> pulse_width;
 	AngleMap angle_map= { angle, pulse_width };
 	return angle_map;
