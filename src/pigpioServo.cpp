@@ -39,7 +39,7 @@ void pigpioServo::SetOffset(InitialOffset offset)
 
 void pigpioServo::SetGpioPin(int pin)
 {
-	_gpio_pin = gpio_pin;
+	_gpio_pin = pin;
 }
 
 bool pigpioServo::Initialize()

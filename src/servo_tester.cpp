@@ -10,6 +10,7 @@
 int main(int argc, char *argv[])
 {
 	AngleMaps angle_maps;
+	int gpio_pin = 17;
 
 	AngleMap center;
 	AngleMap right;
