@@ -16,7 +16,6 @@
 #define RIGHT 1
 #define LEFT 2
 
-int run = 1;
 int gpio_pin;
 int last_pos = 1500; // default center value
 
@@ -28,7 +27,9 @@ struct AngleMap
 
 void stop(int signum)
 {
-	run = 0;
+	gpioServo(gpio_pin, 0);
+	gpioTerminate();
+	std::cout << "Cleaning up...\n";
 }
 
 int rotate_servo(int last_pos, int new_pos)
@@ -112,6 +113,7 @@ AngleMap PrintPrompt(int position)
 	std::cin >> angle;
 
 	std::cout << "Enter a test pulse width for " << angle << " degrees: ";
+	std::cin >> pulse_width;
 	AngleMap angle_map= { angle, pulse_width };
 	return angle_map;
 }
@@ -152,8 +154,7 @@ int main(int argc, char *argv[])
 
 	std::cout << "(TODO - add instructions for what to do with these values...)\n";
 
-	gpioServo(gpio_pin, 0);
-	gpioTerminate();
+	Stop();
 
 	return 0;
 }
