@@ -50,6 +50,8 @@ bool pigpioServo::Initialize()
 		return false;
 	}
 
+	std::cout << "gpioInitialise() was successful\n";
+
 	// TODO replace with turn call
 	gpioServo(_gpio_pin, _center.pulse_width);
 	_last_pos = _center.pulse_width;
@@ -106,5 +108,5 @@ bool pigpioServo::IsAngleValid(double angle)
 
 int pigpioServo::AngleToPulseWidth(double angle)
 {
-	return 1000;
+	return 1490;
 }
