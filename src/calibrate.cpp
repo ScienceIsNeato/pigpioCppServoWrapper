@@ -19,8 +19,8 @@ int last_pos = 1500; // default center value
 
 struct AngleMap
 {
-	int angle = 0;
-	int pulse_width = 1500;
+	int angle;
+	int pulse_width;
 };
 
 void stop(int signum)
