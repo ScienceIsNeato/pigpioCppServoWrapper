@@ -1,23 +1,23 @@
 #include "../include/pigpioServo.h"
 
-pigpioServo::pigpioServo()
+pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries)
 {
+	// create empty offset
+	InitialOffset offset;
+	offset.offsetAngle = 90;
+	offset.offsetX = 0;
+	offset.offsetY = 0;
 
+	// call default constructor
+	pigpioServo servo = pigpioServo(gpio_pin, boundaries, offset);
 }
 
-pigpioServo::pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right)
+pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries, InitialOffset initial_offset)
 {
-	_max_left = max_left;
-	_center = center;
-	_max_right = max_right;
-}
-
-pigpioServo::pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right, InitialOffset initial_offset)
-{
-	_max_left = max_left;
-	_center = center;
-	_max_right = max_right;
-	_initial_offset = initial_offset;
+	SetGpioPin(gpio_pin);
+	SetBoundaries(boundaries);
+	SetOffset(initial_offset);
+	Initialize();
 }
 
 pigpioServo::~pigpioServo()
@@ -25,14 +25,38 @@ pigpioServo::~pigpioServo()
 	Stop();
 }
 
-void pigpioServo::Initialize()
+void SetBoundaries(AngleMaps boundaries)
 {
+	_max_left = boundaries.left_map;
+	_center = boundaries.center_map;
+	_max_right = boundaries.right_map;
+}
 
+void SetOffset(InitialOffset offset)
+{
+	_initial_offset = offset;
+}
+
+void SetGpioPin(int pin)
+{
+	_gpio_pin = gpio_pin;
+}
+
+bool pigpioServo::Initialize()
+{
+	if (gpioInitialise() < 0)
+	{
+		std::cout << "Error initializing gpio.\n";
+	}
+
+	// TODO replace with turn call
+	gpioServo(_gpio_pin, _center.pulse_width);
 }
 
 void pigpioServo::Stop()
 {
-
+	gpioServo(_gpio_pin, 0);
+	gpioTerminate();
 }
 
 void pigpioServo::TurnToAngle(double angle)

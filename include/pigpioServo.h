@@ -26,13 +26,22 @@ struct AngleMap
 	int pulse_width;
 };
 
+struct AngleMaps
+{
+	AngleMap left_map;
+	AngleMap center_map;
+	AngleMap right_map;
+};
+
 class pigpioServo
 {
 public:
-	pigpioServo();
-	pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right);
-	pigpioServo(AngleMap max_left, AngleMap center, AngleMap max_right, InitialOffset initial_offset);
+	pigpioServo(int gpio_pin, AngleMaps boundaries);
+	pigpioServo(int gpio_pin, AngleMaps boundaries, InitialOffset initial_offset);
 	~pigpioServo();
+	void SetBoundaries(AngleMaps boundaries);
+	void SetOffset(InitialOffset offset);
+	void SetGpioPin(int pin);
 	void Initialize();
 	void Stop();
 	void TurnToAngle(double angle);
