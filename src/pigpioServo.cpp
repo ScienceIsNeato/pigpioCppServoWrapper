@@ -101,6 +101,7 @@ void pigpioServo::TurnToAngle(double angle)
 		pos += step;
 		time_sleep(0.001);
 	}
+	std::cout << "IM IN HERE about to set last_pos to " << new_pos << std::endl;
 	_last_pos = new_pos;
 }
 
