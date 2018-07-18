@@ -20,7 +20,7 @@ int gpio_pin;
 int last_pos = 1500; // default center 
 
 const std::string typical_angles[] = { "90", "180", "0" }; // indices match to #defs for CENTER/RIGHT/LEFT above
-const std::string typical_pulse_widths[] = { "1500", "600", "2300" }; // indices match to #defs for CENTER/RIGHT/LEFT above
+const std::string typical_pulse_widths[] = { "1500", "700", "2300" }; // indices match to #defs for CENTER/RIGHT/LEFT above
 
 struct AngleMap
 {
@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
 	std::cout << "Great job! Recentering servo for minimal wear...\n";
 	rotate_servo(left_val.pulse_width, center_val.pulse_width);
 
-	std::cout << "\n\nCALIBRATION RESULTS FOR GPIO: (angle, pulse width)" << gpio_pin << std::endl;
+	std::cout << "\n\nCALIBRATION RESULTS FOR GPIO: (angle, pulse width) for pin" << gpio_pin << std::endl;
 	std::cout << "Right\t(" << right_val.angle << " degrees, " << right_val.pulse_width << " duty cycle)\n";
 	std::cout << "Center\t(" << center_val.angle << " degrees, " << center_val.pulse_width << " duty cycle)\n";
 	std::cout << "Left\t(" << left_val.angle << " degrees, " << left_val.pulse_width << " duty cycle)\n";
