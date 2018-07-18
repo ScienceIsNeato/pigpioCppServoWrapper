@@ -25,11 +25,19 @@ struct AngleMap
 	int pulse_width;
 };
 
-void stop(int signum)
+void stop(int is_error)
 {
+	std::cout << "Cleaning up...\n";
+
 	gpioServo(gpio_pin, 0);
 	gpioTerminate();
-	std::cout << "Cleaning up...\n";
+
+	if (is_error)
+	{
+		std::cout << "Aborting the program because you told me to\n";
+		exit(is_error);
+	}
+	exit(0);
 }
 
 int rotate_servo(int last_pos, int new_pos)
