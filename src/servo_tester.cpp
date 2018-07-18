@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	angle_maps.right_map = right;
 	angle_maps.left_map = left;
 
-	pigpioServo *servo = new pigpioServo(angle_maps);
+	pigpioServo *servo = new pigpioServo(gpio_pin, angle_maps);
 	return 0;
 }
 
