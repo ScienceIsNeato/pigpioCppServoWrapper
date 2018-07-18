@@ -159,12 +159,18 @@ int main(int argc, char *argv[])
 	AngleMap right_val = GetVal(RIGHT);
 	AngleMap left_val = GetVal(LEFT);
 
-	std::cout << "CALIBRATION RESULTS FOR GPIO: (angle, pulse width)" << gpio_pin << std::endl;
+	std::cout << "Great job! Recentering servo for minimal wear...\n";
+	rotate_servo(left_val.pulse_width, center_val.pulse_width);
+
+	std::cout << "\n\nCALIBRATION RESULTS FOR GPIO: (angle, pulse width)" << gpio_pin << std::endl;
 	std::cout << "Right\t(" << right_val.angle << " degrees, " << right_val.pulse_width << " duty cycle)\n";
 	std::cout << "Center\t(" << center_val.angle << " degrees, " << center_val.pulse_width << " duty cycle)\n";
 	std::cout << "Left\t(" << left_val.angle << " degrees, " << left_val.pulse_width << " duty cycle)\n";
 
-	std::cout << "(TODO - add instructions for what to do with these values...)\n";
+	std::cout << "Next, you should test these calibration results by running the following command:\n";
+	std::cout << "\n\n\t sudo ./test_servo " << gpio_pin << " " << right_val.angle << " " << right_val.pulse_width << " " << center_val.angle << " " << center_val.pulse_width << " " << left_val.angle << " " << left_val.pulse_width << std::endl;
+
+	std::cout << " \n\nor you can call up an instance of a calibrated servo with the following code: TODO\n";
 
 	stop(0);
 
