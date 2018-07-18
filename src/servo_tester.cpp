@@ -9,7 +9,17 @@
 
 int main(int argc, char *argv[])
 {
-	pigpioServo *servo = new pigpioServo();
+	AngleMaps angle_maps;
+
+	AngleMap center;
+	AngleMap right;
+	AngleMap left;
+
+	angle_maps.center_map = center;
+	angle_maps.right_map = right;
+	angle_maps.left_map = left;
+
+	pigpioServo *servo = new pigpioServo(angle_maps);
 	return 0;
 }
 
