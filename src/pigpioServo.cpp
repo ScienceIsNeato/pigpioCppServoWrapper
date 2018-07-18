@@ -25,19 +25,19 @@ pigpioServo::~pigpioServo()
 	Stop();
 }
 
-void SetBoundaries(AngleMaps boundaries)
+void pigpioServo::SetBoundaries(AngleMaps boundaries)
 {
 	_max_left = boundaries.left_map;
 	_center = boundaries.center_map;
 	_max_right = boundaries.right_map;
 }
 
-void SetOffset(InitialOffset offset)
+void pigpioServo::SetOffset(InitialOffset offset)
 {
 	_initial_offset = offset;
 }
 
-void SetGpioPin(int pin)
+void pigpioServo::SetGpioPin(int pin)
 {
 	_gpio_pin = gpio_pin;
 }
