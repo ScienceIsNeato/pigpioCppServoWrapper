@@ -66,6 +66,7 @@ void pigpioServo::Stop()
 
 void pigpioServo::TurnToAngle(double angle)
 {
+	gpioInitialise(); // TODO find out why this has to be here
 	if(!IsAngleValid(angle))
 	{
 		std::cout << "You entered and invalid angle, dummy.\n";
@@ -76,6 +77,7 @@ void pigpioServo::TurnToAngle(double angle)
 	int pos = _last_pos;
 	int step = 1;
 
+	std::cout << "Last pos is " << _last_pos << " new pos is " << new_pos << std::endl;
 	// check valid range
 	if (new_pos > MAX_RANGE || new_pos < MIN_RANGE)
 	{
