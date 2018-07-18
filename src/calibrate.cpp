@@ -17,6 +17,12 @@ int run = 1;
 int gpio_pin;
 int last_pos = 1500; // default center value
 
+struct AngleMap
+{
+	int angle = 0;
+	int pulse_width = 1500;
+};
+
 void stop(int signum)
 {
 	run = 0;
@@ -67,9 +73,9 @@ std::string GetPositionString(int pos)
 	return pos_string;
 }
 
-bool ConfirmVal(int test_val, int position, int &accepted_val)
+AngleMap GetAcceptedVal(int position, AngleMap &accepted_val)
 {
-	int new_pos = test_val;
+	int new_pos = accepted_val.pulse_width;
 	std::cout << "new pos: " << new_pos << " last pos " << last_pos << std::endl;
 	if (new_pos != last_pos)
 	{
@@ -83,37 +89,34 @@ bool ConfirmVal(int test_val, int position, int &accepted_val)
 	{
 		std::cout << "Ok Enter a new value for position <" << GetPositionString(position) << ">: ";
 		std::cin >> new_pos;
-		return ConfirmVal(new_pos, position, accepted_val);
+		accepted_val.pulse_width = new_pos;
+		return GetAcceptedVal(position, accepted_val);
 	}
 	else
 	{
-		accepted_val = new_pos;
-		return true;
+		accepted_val.pulse_width = new_pos;
+		return accepted_val;
 	}
-	return false;
 }
 
-int PrintPrompt(int position)
+AngleMap PrintPrompt(int position)
 {
-	int val;
+	int angle;
+	int pulse_width;
 	std::string pos_string = GetPositionString(position);
 
-	std::cout << "Enter a test value for the " << pos_string << " - value: ";
-	std::cin >> val;
-	return val;
+	std::cout << "Enter the desired angle for the " << pos_string << " value: ";
+	std::cin >> angle;
+
+	std::cout << "Enter a test pulse width for " << angle << " degrees: ";
+	AngleMap angle_map= { angle, pulse_width };
+	return angle_map;
 }
 
-int GetVal(int position)
+AngleMap GetVal(int position)
 {
-	int accepted_value;
-	while (true)
-	{
-		int test_val = PrintPrompt(position);
-		if (ConfirmVal(test_val, position, accepted_value))
-		{
-			return accepted_value;
-		}
-	}
+	AngleMap angle_map = PrintPrompt(position);
+	return GetAcceptedVal(position, angle_map))
 }
 
 
