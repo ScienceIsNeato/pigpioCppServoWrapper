@@ -52,6 +52,7 @@ bool pigpioServo::Initialize()
 
 	// TODO replace with turn call
 	gpioServo(_gpio_pin, _center.pulse_width);
+	_last_pos = _center.pulse_width;
 	return true;
 }
 
@@ -63,15 +64,47 @@ void pigpioServo::Stop()
 
 void pigpioServo::TurnToAngle(double angle)
 {
+	if(!IsAngleValid(angle))
+	{
+		std::cout << "You entered and invalid angle, dummy.\n";
+		return;
+	}
 
+	int new_pos = AngleToPulseWidth(angle);
+	int pos = last_pos;
+	int step = 1;
+
+	// check valid range
+	if (new_pos > MAX_RANGE || new_pos < MIN_RANGE)
+	{
+		std::cout << "Position of " << new_pos << " is invalid. Please select a range between " << MIN_RANGE << " and " << MAX_RANGE << ".\n";
+		return last_pos;
+	}
+
+	// sweeping up or down?
+	if (new_pos < pos)
+	{
+		step = -1;
+	}
+
+	// Perform the rotation
+	while (pos != new_pos)
+	{
+		//printf("%d \n", pos);
+
+		gpioServo(gpio_pin, pos);
+		pos += step;
+		time_sleep(0.001);
+	}
+	_last_pos = new_pos;
 }
 
 bool pigpioServo::IsAngleValid(double angle)
 {
-	return false;
+	return true;
 }
 
 int pigpioServo::AngleToPulseWidth(double angle)
 {
-	return 0;
+	return 1000;
 }

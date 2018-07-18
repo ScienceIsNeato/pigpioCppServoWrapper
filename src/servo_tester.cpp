@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
 
 		left.angle = atoi(argv[6]);
 		left.pulse_width = atoi(argv[7]);
+		std::cout << "\nGood job!\n";
 	}
 	else
 	{
@@ -41,6 +42,13 @@ int main(int argc, char *argv[])
 	angle_maps.left_map = left;
 
 	pigpioServo *servo = new pigpioServo(gpio_pin, angle_maps);
+
+	time_sleep(2.0);
+	std::cout << "Turning servo to 45 degrees...\n";
+	servo->TurnToAngle(45);
+	time_sleep(2.0);
+	std::cout << "Cleaning up...\n";
+	delete servo;
 	return 0;
 }
 

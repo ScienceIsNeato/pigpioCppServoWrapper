@@ -57,4 +57,5 @@ private:
 	int current_pulsewidth;
 
 	int AngleToPulseWidth(double angle);
+	int _last_pos;
 };
