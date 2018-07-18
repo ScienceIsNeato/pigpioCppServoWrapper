@@ -154,7 +154,7 @@ int main(int argc, char *argv[])
 
 	std::cout << "(TODO - add instructions for what to do with these values...)\n";
 
-	Stop();
+	stop();
 
 	return 0;
 }
