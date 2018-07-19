@@ -57,8 +57,9 @@ int main(int argc, char *argv[])
 	servo->TurnToAngle(45);
 	time_sleep(2.0);
 	std::cout << "\nTurning servo to 135 degrees...\n" << std::flush;
-	time_sleep(2.0);
 	servo->TurnToAngle(135);
+	time_sleep(2.0);
+
 
 	std::cout << "\nCleaning up...\n";
 	return 0;
