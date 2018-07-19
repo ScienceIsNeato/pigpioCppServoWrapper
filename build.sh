@@ -8,7 +8,7 @@ else
 fi
 
 echo "Building test binary..."
-g++ -Wall -pthread -o servo_tester src/pigpioServo.cpp src/servo_tester.cpp -lpigpio -lrt
+g++ -std=c++0x -Wall -pthread -o servo_tester src/pigpioServo.cpp src/servo_tester.cpp -lpigpio -lrt
 
 if [ $? -eq 0 ]; then
     echo "Successfully built 'servo_tester'"
