@@ -22,7 +22,7 @@ pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries, InitialOffset initi
 
 pigpioServo::~pigpioServo()
 {
-	Stop();
+	//Stop();
 }
 
 void pigpioServo::SetBoundaries(AngleMaps boundaries)
@@ -66,6 +66,7 @@ bool pigpioServo::Initialize()
 void pigpioServo::Stop()
 {
 	gpioServo(_gpio_pin, 0);
+	std::cout << "In STOP - about to terminate!\n";
 	gpioTerminate();
 }
 
@@ -117,5 +118,14 @@ bool pigpioServo::IsAngleValid(double angle)
 
 int pigpioServo::AngleToPulseWidth(double angle)
 {
-	return 1490;
+	if (angle > _center.angle)
+	{
+		std::cout << "returning " << _max_left.pulse_width << std::flush;
+		return _max_left.pulse_width;
+	}
+	else
+	{
+		std::cout << "returning " << _max_right.pulse_width << std::flush;
+		return _max_right.pulse_width;
+	}
 }

@@ -4,6 +4,7 @@
 
 #include <pigpio.h>
 #include <iostream>
+#include <memory>
 #include "../include/pigpioServo.h"
 
 
@@ -42,14 +43,13 @@ int main(int argc, char *argv[])
 	angle_maps.right_map = right;
 	angle_maps.left_map = left;
 
-	pigpioServo *servo = new pigpioServo(gpio_pin, angle_maps);
+	std::shared_ptr<pigpioServo> servo = std::make_shared<pigpioServo>(gpio_pin, angle_maps);
 
 	time_sleep(2.0);
 	std::cout << "Turning servo to 45 degrees...\n";
 	servo->TurnToAngle(45);
 	time_sleep(2.0);
 	std::cout << "Cleaning up...\n";
-	delete servo;
 	return 0;
 }
 
