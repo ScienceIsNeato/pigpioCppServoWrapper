@@ -71,7 +71,7 @@ void pigpioServo::Stop()
 {
 	std::cout << "\nRecentering servo on way out...\n" << std::flush;
 	TurnToAngle(_center.angle);
-	time_sleep(1.0);
+	time_sleep(2.0);
 	gpioServo(_gpio_pin, 0);
 	std::cout << "\nIn STOP - about to terminate!\n" << std::flush;
 	gpioTerminate();

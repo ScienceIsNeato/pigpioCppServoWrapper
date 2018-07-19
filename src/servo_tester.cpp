@@ -52,12 +52,12 @@ int main(int argc, char *argv[])
 	std::shared_ptr<pigpioServo> servo = std::make_shared<pigpioServo>(gpio_pin, angle_maps, offset);
 	std::cout << "\nHERE B" << std::flush;
 
-	time_sleep(2.0);
+	time_sleep(5.0);
 	std::cout << "\nTurning servo to 45 degrees...\n" << std::flush;
 	servo->TurnToAngle(45);
 	time_sleep(2.0);
 	std::cout << "\nTurning servo to 135 degrees...\n" << std::flush;
-
+	time_sleep(2.0);
 	servo->TurnToAngle(135);
 
 	std::cout << "\nCleaning up...\n";
