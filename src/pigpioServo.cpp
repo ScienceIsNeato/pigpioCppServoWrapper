@@ -79,7 +79,6 @@ void pigpioServo::Stop()
 
 void pigpioServo::TurnToAngle(double angle)
 {
-	_last_pos = 1600;
 	if(!IsAngleValid(angle))
 	{
 		std::cout << "\nYou entered and invalid angle, dummy.\n" << std::flush;
