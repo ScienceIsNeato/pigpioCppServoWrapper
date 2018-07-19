@@ -50,17 +50,17 @@ bool pigpioServo::Initialize()
 {
 	_last_pos = _center.pulse_width;
 	std::cout << "\nA gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
-	if (gpioInitialise() < 0)
-	{
-		std::cout << "\nError initializing gpio.\n" << std::flush;
-		return false;
-	}
+	//if (gpioInitialise() < 0)
+	//{
+		//std::cout << "\nError initializing gpio.\n" << std::flush;
+		//return false;
+	//}
 
 	std::cout << "\ngpioInitialise() was successful\n" << std::flush;
 	std::cout << "\nB gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
 
 	// TODO replace with turn call
-	TurnToAngle(90);
+	//TurnToAngle(90);
 	//gpioServo(_gpio_pin, _center.pulse_width);
 	std::cout << "\nabout to set _last_pos to " << _center.pulse_width << std::flush;
 	_last_pos = _center.pulse_width;
