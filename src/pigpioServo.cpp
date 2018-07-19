@@ -17,12 +17,15 @@ pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries, InitialOffset initi
 	SetGpioPin(gpio_pin);
 	SetBoundaries(boundaries);
 	SetOffset(initial_offset);
+	std::cout << "\nABOUT TO CALL INIT" << std::flush;
 	Initialize();
+	std::cout << "\nINIT CALLED" << std::flush;
+
 }
 
 pigpioServo::~pigpioServo()
 {
-	std::cout << "FUCKING DESTRUCTOR GETTING CALLED\n" << std::flush;
+	std::cout << "\nFUCKING DESTRUCTOR GETTING CALLED\n" << std::flush;
 	//Stop();
 }
 
@@ -46,20 +49,20 @@ void pigpioServo::SetGpioPin(int pin)
 bool pigpioServo::Initialize()
 {
 	_last_pos = _center.pulse_width;
-	std::cout << "A gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
+	std::cout << "\nA gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
 	if (gpioInitialise() < 0)
 	{
-		std::cout << "Error initializing gpio.\n" << std::flush;
+		std::cout << "\nError initializing gpio.\n" << std::flush;
 		return false;
 	}
 
-	std::cout << "gpioInitialise() was successful\n" << std::flush;
-	std::cout << "B gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
+	std::cout << "\ngpioInitialise() was successful\n" << std::flush;
+	std::cout << "\nB gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
 
 	// TODO replace with turn call
 	TurnToAngle(90);
 	//gpioServo(_gpio_pin, _center.pulse_width);
-	std::cout << "about to set _last_pos to " << _center.pulse_width << std::flush;
+	std::cout << "\nabout to set _last_pos to " << _center.pulse_width << std::flush;
 	_last_pos = _center.pulse_width;
 	return true;
 }
@@ -67,7 +70,7 @@ bool pigpioServo::Initialize()
 void pigpioServo::Stop()
 {
 	gpioServo(_gpio_pin, 0);
-	std::cout << "In STOP - about to terminate!\n" << std::flush;
+	std::cout << "\nIn STOP - about to terminate!\n" << std::flush;
 	gpioTerminate();
 }
 
@@ -77,7 +80,7 @@ void pigpioServo::TurnToAngle(double angle)
 	_last_pos = 1600;
 	if(!IsAngleValid(angle))
 	{
-		std::cout << "You entered and invalid angle, dummy.\n" << std::flush;
+		std::cout << "\nYou entered and invalid angle, dummy.\n" << std::flush;
 		return;
 	}
 
@@ -85,11 +88,11 @@ void pigpioServo::TurnToAngle(double angle)
 	int pos = _last_pos;
 	int step = 1;
 
-	std::cout << "Last pos is " << _last_pos << " new pos is " << new_pos << std::flush;
+	std::cout << "\nLast pos is " << _last_pos << " new pos is " << new_pos << std::flush;
 	// check valid range
 	if (new_pos > MAX_RANGE || new_pos < MIN_RANGE)
 	{
-		std::cout << "Position of " << new_pos << " is invalid. Please select a range between " << MIN_RANGE << " and " << MAX_RANGE << ".\n" << std::flush;
+		std::cout << "\nPosition of " << new_pos << " is invalid. Please select a range between " << MIN_RANGE << " and " << MAX_RANGE << ".\n" << std::flush;
 		return;
 	}
 
@@ -108,7 +111,7 @@ void pigpioServo::TurnToAngle(double angle)
 		pos += step;
 		time_sleep(0.001);
 	}
-	std::cout << "IM IN HERE about to set last_pos to " << new_pos << std::flush;
+	std::cout << "\nIM IN HERE about to set last_pos to " << new_pos << std::flush;
 	_last_pos = new_pos;
 }
 
@@ -121,12 +124,12 @@ int pigpioServo::AngleToPulseWidth(double angle)
 {
 	if (angle > _center.angle)
 	{
-		std::cout << "returning " << _max_left.pulse_width << std::flush;
+		std::cout << "\nreturning " << _max_left.pulse_width << std::flush;
 		return _max_left.pulse_width;
 	}
 	else
 	{
-		std::cout << "returning " << _max_right.pulse_width << std::flush;
+		std::cout << "\nreturning " << _max_right.pulse_width << std::flush;
 		return _max_right.pulse_width;
 	}
 }

@@ -43,19 +43,19 @@ int main(int argc, char *argv[])
 	angle_maps.right_map = right;
 	angle_maps.left_map = left;
 
-	std::cout << "HERE A" << std::flush;
+	std::cout << "\nHERE A" << std::flush;
 	std::shared_ptr<pigpioServo> servo = std::make_shared<pigpioServo>(gpio_pin, angle_maps);
-	std::cout << "HERE B" << std::flush;
+	std::cout << "\nHERE B" << std::flush;
 
 	time_sleep(2.0);
-	std::cout << "Turning servo to 45 degrees...\n" << std::flush;
+	std::cout << "\nTurning servo to 45 degrees...\n" << std::flush;
 	servo->TurnToAngle(45);
 	time_sleep(2.0);
-	std::cout << "Turning servo to 135 degrees...\n" << std::flush;
+	std::cout << "\nTurning servo to 135 degrees...\n" << std::flush;
 
 	servo->TurnToAngle(135);
 
-	std::cout << "Cleaning up...\n";
+	std::cout << "\nCleaning up...\n";
 	return 0;
 }
 
