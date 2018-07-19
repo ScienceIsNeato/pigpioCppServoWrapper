@@ -48,10 +48,10 @@ int main(int argc, char *argv[])
 	std::cout << "HERE B" << std::flush;
 
 	time_sleep(2.0);
-	std::cout << "Turning servo to 45 degrees...\n";
+	std::cout << "Turning servo to 45 degrees...\n" << std::flush;
 	servo->TurnToAngle(45);
 	time_sleep(2.0);
-	std::cout << "Turning servo to 135 degrees...\n";
+	std::cout << "Turning servo to 135 degrees...\n" << std::flush;
 
 	servo->TurnToAngle(135);
 
