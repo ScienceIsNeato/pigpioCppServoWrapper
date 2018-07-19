@@ -43,8 +43,13 @@ int main(int argc, char *argv[])
 	angle_maps.right_map = right;
 	angle_maps.left_map = left;
 
+	InitialOffset offset;
+	offset.offsetAngle = 90;
+	offset.offsetX = 0;
+	offset.offsetY = 0;
+
 	std::cout << "\nHERE A" << std::flush;
-	std::shared_ptr<pigpioServo> servo = std::make_shared<pigpioServo>(gpio_pin, angle_maps);
+	std::shared_ptr<pigpioServo> servo = std::make_shared<pigpioServo>(gpio_pin, angle_maps, offset);
 	std::cout << "\nHERE B" << std::flush;
 
 	time_sleep(2.0);

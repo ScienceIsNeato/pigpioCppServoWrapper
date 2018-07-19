@@ -1,16 +1,16 @@
 #include "../include/pigpioServo.h"
 
-pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries)
-{
-	// create empty offset
-	InitialOffset offset;
-	offset.offsetAngle = 90;
-	offset.offsetX = 0;
-	offset.offsetY = 0;
-
-	// call default constructor
-	pigpioServo servo = pigpioServo(gpio_pin, boundaries, offset);
-}
+//pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries)
+//{
+//	// create empty offset
+//	InitialOffset offset;
+//	offset.offsetAngle = 90;
+//	offset.offsetX = 0;
+//	offset.offsetY = 0;
+//
+//	// call default constructor
+//	pigpioServo servo = pigpioServo(gpio_pin, boundaries, offset);
+//}
 
 pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries, InitialOffset initial_offset)
 {

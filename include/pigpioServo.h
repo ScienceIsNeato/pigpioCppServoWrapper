@@ -38,7 +38,7 @@ struct AngleMaps
 class pigpioServo
 {
 public:
-	pigpioServo(int gpio_pin, AngleMaps boundaries);
+	//pigpioServo(int gpio_pin, AngleMaps boundaries);
 	pigpioServo(int gpio_pin, AngleMaps boundaries, InitialOffset initial_offset);
 	~pigpioServo();
 	void SetBoundaries(AngleMaps boundaries);
