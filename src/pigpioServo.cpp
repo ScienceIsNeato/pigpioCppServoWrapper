@@ -18,7 +18,7 @@ pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries, InitialOffset initi
 	SetBoundaries(boundaries);
 	SetOffset(initial_offset);
 	std::cout << "\nABOUT TO CALL INIT" << std::flush;
-	Initialize();
+	//Initialize();
 	std::cout << "\nINIT CALLED" << std::flush;
 
 }
