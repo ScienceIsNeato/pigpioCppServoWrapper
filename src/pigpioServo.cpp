@@ -1,5 +1,6 @@
 #include "../include/pigpioServo.h"
 
+// TODO fix this shit
 //pigpioServo::pigpioServo(int gpio_pin, AngleMaps boundaries)
 //{
 //	// create empty offset
@@ -57,12 +58,8 @@ bool pigpioServo::Initialize()
 	}
 
 	std::cout << "\ngpioInitialise() was successful\n" << std::flush;
-	std::cout << "\nB gpio pin is " << _gpio_pin << " and _last_pos is " << _last_pos << std::flush;
 
-	// TODO replace with turn call
 	TurnToAngle(90);
-	//gpioServo(_gpio_pin, _center.pulse_width);
-	std::cout << "\nabout to set _last_pos to " << _center.pulse_width << std::flush;
 	_last_pos = _center.pulse_width;
 	return true;
 }
@@ -73,7 +70,6 @@ void pigpioServo::Stop()
 	TurnToAngle(_center.angle);
 	time_sleep(2.0);
 	gpioServo(_gpio_pin, 0);
-	std::cout << "\nIn STOP - about to terminate!\n" << std::flush;
 	gpioTerminate();
 }
 
@@ -89,7 +85,6 @@ void pigpioServo::TurnToAngle(double angle)
 	int pos = _last_pos;
 	int step = 1;
 
-	std::cout << "\nLast pos is " << _last_pos << " new pos is " << new_pos << std::flush;
 	// check valid range
 	if (new_pos > MAX_RANGE || new_pos < MIN_RANGE)
 	{
@@ -112,7 +107,6 @@ void pigpioServo::TurnToAngle(double angle)
 		pos += step;
 		time_sleep(0.001);
 	}
-	std::cout << "\nIM IN HERE about to set last_pos to " << new_pos << std::flush;
 	_last_pos = new_pos;
 }
 
@@ -125,13 +119,22 @@ int pigpioServo::AngleToPulseWidth(double angle)
 {
 	// full right is smallest pulse width, largest angle (i.e. 180 and 600)
 	// full left is largest pulse width, smallest angle (i.e. 0 and 2300)
-	if (angle > _center.angle)
+	if (angle < _max_left.angle)
+	{
+		std::cout << "WARNING - you just attempted to turn to angle " << angle << " - setting to max_left of " << _max_left.pulse_width << std::flush;
+		return _max_left.pulse_width;
+	}
+	else if (angle > _max_right.angle)
+	{
+		std::cout << "WARNING - you just attempted to turn to angle " << angle << " - setting to max_right of " << _max_left.pulse_width << std::flush;
+		return _max_left.pulse_width;
+	}
+	else if (angle > _center.angle)
 	{
 		// Turning right
 		double percent_span = (angle - _center.angle) / (_max_right.angle - _center.angle);
 		double pulse_width_delta = (_max_right.pulse_width - _center.pulse_width) * percent_span;
 		int new_pulse_width = _center.pulse_width + pulse_width_delta;
-		std::cout << "\nreturning " << new_pulse_width << std::flush;
 		return new_pulse_width;
 	}
 	else if (angle < _center.angle)
@@ -140,7 +143,6 @@ int pigpioServo::AngleToPulseWidth(double angle)
 		double percent_span = (angle - _max_left.angle) / (_max_right.angle - _center.angle - _max_left.angle);
 		double pulse_width_delta = (_center.pulse_width - _max_left.pulse_width) * percent_span;
 		int new_pulse_width = _max_left.pulse_width + pulse_width_delta;
-		std::cout << "\nreturning " << new_pulse_width << std::flush;
 		return new_pulse_width;
 	}
 	else

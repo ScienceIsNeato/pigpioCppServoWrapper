@@ -48,9 +48,7 @@ int main(int argc, char *argv[])
 	offset.offsetX = 0;
 	offset.offsetY = 0;
 
-	std::cout << "\nHERE A" << std::flush;
 	std::shared_ptr<pigpioServo> servo = std::make_shared<pigpioServo>(gpio_pin, angle_maps, offset);
-	std::cout << "\nHERE B" << std::flush;
 
 	for (int i = 0; i < 180; i += 10)
 	{
